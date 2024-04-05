@@ -59,16 +59,8 @@
     methods: {
       login(formName) {
         let that = this
-        let publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC40HlkFGoL1omy499B0j75LIS0zfkdt0/aE4XOhM4F316vk0zxFZTLghfBYFaU/WPhPbNNRmqMEeM1ZaCNuH05EkvfNrg2yjYyuhZGWdG4DVnx7y9YpeWjJsXmlDivMwt+yUlxoxCKArcw846CqEqNr+rVD3aYvhT+VncuCycBCQIDAQAB"
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // 使用CryptoJS进行密码加密，并将加密后的密码赋值给userForm.password  
-            let encrypt = new JSEncrypt()
-            //将公钥存入内
-           encrypt.setPublicKey(publicKey)
-           let encryptedPassword = encrypt.encrypt(that.userForm.password)
-           console.debug("encryptedPassword",encryptedPassword)
-            this.userForm.password = encryptedPassword;  
             that.$store.dispatch('login', that.userForm).then(() => {
               that.$router.go(-1)
             }).catch((error) => {
